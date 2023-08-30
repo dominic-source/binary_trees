@@ -8,14 +8,25 @@
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
+	binary_tree_t **queue;
+	binary_tree_t *current;
+	int front = 0, rear = 0;
+
 	if (tree == NULL || func == NULL)
 		return;
-	if (tree->parent == NULL)
-		func(tree->n);
-	if (tree->left != NULL)
-		func(tree->left->n);
-	if (tree->right != NULL)
-		func(tree->right->n);
-	binary_tree_levelorder(tree->left, func);
-	binary_tree_levelorder(tree->right, func);
+
+	queue = malloc(sizeof(binary_tree_t *) * 1000);
+	queue[rear++] = (binary_tree_t *)tree;
+
+	while (front < rear)
+	{
+		current = queue[front++];
+		func(current->n);
+
+		if (current->left != NULL)
+			queue[rear++] = current->left;
+		if (current->right != NULL)
+			queue[rear++] = current->right;
+	}
+	free(queue);
 }
