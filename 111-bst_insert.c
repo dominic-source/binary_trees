@@ -24,12 +24,12 @@ bst_t *bst_insert(bst_t **tree, int value)
 			x = x->left;
 		else if (node->n == x->n)
 			return (NULL);
-		else
+		else if (node->n > x->n)
 			x = x->right;
 	}
 	node->parent = y;
 	if (y == NULL)
-		*tree = node;
+		tree = &node;
 	else if (node->n < y->n)
 		y->left = node;
 	else
