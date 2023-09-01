@@ -19,7 +19,7 @@ int main(void)
     printf("Inserted: %d\n", node->n);
     node = bst_insert(&root, 12);
     printf("Inserted: %d\n", node->n);
-    /*node = bst_insert(&root, 46);
+    node = bst_insert(&root, 46);
     printf("Inserted: %d\n", node->n);
     node = bst_insert(&root, 128);
     printf("Inserted: %d\n", node->n);
@@ -31,6 +31,6 @@ int main(void)
     printf("Inserted: %d\n", node->n);
     node = bst_insert(&root, 128);
     printf("Node should be nil -> %p\n", (void *)node);
-    */binary_tree_print(root);
+    binary_tree_print(root);
     return (0);
 }

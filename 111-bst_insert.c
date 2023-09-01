@@ -8,15 +8,16 @@
  */
 bst_t *bst_insert(bst_t **tree, int value)
 {
-	bst_t *node, *y, *x;
+	bst_t *node, *y, *x = *tree;
 
 	y = NULL;
-	x = *tree;
 
 	node = malloc(sizeof(bst_t));
 	if (node == NULL)
 		return (NULL);
 	node->n = value;
+	node->left = NULL;
+	node->right = NULL;
 	while (x != NULL)
 	{
 		y = x;
@@ -29,7 +30,7 @@ bst_t *bst_insert(bst_t **tree, int value)
 	}
 	node->parent = y;
 	if (y == NULL)
-		tree = &node;
+		*tree = node;
 	else if (node->n < y->n)
 		y->left = node;
 	else
