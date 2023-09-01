@@ -1,6 +1,6 @@
 #include "binary_trees.h"
 
-/*
+/**
  * array_to_bst - convert array to a binary search tree
  * @array: the array of integers
  * @size: the size of the array
