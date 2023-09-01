@@ -24,7 +24,10 @@ bst_t *bst_insert(bst_t **tree, int value)
 		if (node->n < x->n)
 			x = x->left;
 		else if (node->n == x->n)
+		{
+			free(node);
 			return (NULL);
+		}
 		else if (node->n > x->n)
 			x = x->right;
 	}
