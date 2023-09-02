@@ -4,6 +4,7 @@
  * bst_search - search for a value in the bst
  * @tree: a pointer to the binary tree
  * @value: the value to search for
+ * Return: a pointer to the node or NULL
  */
 bst_t *bst_search(const bst_t *tree, int value)
 {
@@ -11,12 +12,12 @@ bst_t *bst_search(const bst_t *tree, int value)
 		return (NULL);
 	while (tree != NULL)
 	{
-		if (tree < value)
+		if (tree->n < value)
 			tree = tree->right;
-		else if (tree > value)
+		else if (tree->n > value)
 			tree = tree->left;
 		else
-			return (tree);
+			return ((bst_t *)tree);
 	}
 	return (NULL);
 }
