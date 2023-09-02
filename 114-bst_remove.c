@@ -118,11 +118,7 @@ bst_t *bst_remove(bst_t *tree, int value)
 	{
 		current = bst_successor(rem);
 		if (current->parent != rem)
-		{
-			ntree = shift_node(current, current->right);
-			current->right = rem->right;
-			current->right->parent = current;
-		}
+			BST;
 		tree = ntree != NULL ? ntree : tree;
 		ntree = shift_node(rem, current);
 		current->left = rem->left;
@@ -135,3 +131,4 @@ bst_t *bst_remove(bst_t *tree, int value)
 	}
 	return (tree);
 }
+

@@ -70,4 +70,11 @@ heap_t *array_to_heap(int *array, size_t size);
 int heap_extract(heap_t **root);
 int *heap_to_sorted_array(heap_t *heap, size_t *size);
 
+#define BST\
+        do {\
+                ntree = shift_node(current, current->right);\
+                current->right = rem->right;\
+                current->right->parent = current;\
+        } \
+        while (0)
 #endif
