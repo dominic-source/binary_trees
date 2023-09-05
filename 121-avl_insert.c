@@ -9,7 +9,7 @@
 void balance_avl(avl_t **tree, avl_t *node)
 {
 	avl_t *x, *g, *new;
-	int bfx = 0, bfz = 0;
+	int bfx, bfz;
 
 	for (x = node->parent; x != NULL; x = x->parent)
 	{
