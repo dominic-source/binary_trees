@@ -37,6 +37,7 @@ void balance_avl(avl_t **tree, avl_t *node)
 		}
 		else
 			new = x;
+
 		if (new->parent != NULL)
 		{
 			if (new->n < new->parent->n)
@@ -71,7 +72,7 @@ avl_t *avl_insert(avl_t **tree, int value)
 		else if (current->n == value)
 		{
 			free(node);
-			return (NULL);
+			return (current);
 		}
 		else
 			current = current->right;
