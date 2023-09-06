@@ -8,74 +8,44 @@
  */
 void balance_avl(avl_t **tree, avl_t *node)
 {
-	avl_t *x, *g, *new;
-	int bfx, bfz;
+	avl_t *x, *new;
+	int bfx;
 
 	for (x = node->parent; x != NULL; x = x->parent)
 	{
-		bfz = binary_tree_balance(node);
 		bfx = binary_tree_balance(x);
-		if (node == x->right)
+
+		if (bfx > 1)
 		{
-			if (bfx > 0)
-			{
-				g = x->parent;
-				if (bfz < 0)
-				{
-					new = binary_tree_rotate_right(node);
-					new = binary_tree_rotate_left(x);
-				}
-				else
-					new = binary_tree_rotate_left(x);
-			}
+			if (node->n < x->left->n)
+				new = binary_tree_rotate_right(x);
 			else
 			{
-				if (bfx < 0)
-				{
-					bfx = 0;
-					break;
-				}
-				bfx = 1;
-				node = x;
-				continue;
+				x->left = binary_tree_rotate_left(x->left);
+				new = binary_tree_rotate_right(x);
+			}
+		}
+		else if (bfx < -1)
+		{
+			if (node->n > x->right->n)
+				new = binary_tree_rotate_left(x);
+			else
+			{
+				x->right = binary_tree_rotate_right(x->right);
+				new = binary_tree_rotate_left(x);
 			}
 		}
 		else
+			new = x;
+		if (new->parent != NULL)
 		{
-			if (bfx < 0)
-			{
-				g = x->parent;
-				if (bfz > 0)
-				{
-					new = binary_tree_rotate_left(node);
-					new = binary_tree_rotate_right(x);
-				}
-				else
-					new = binary_tree_rotate_right(x);
-			}
+			if (new->n < new->parent->n)
+				new->parent->left = new;
 			else
-			{
-				if (bfx > 0)
-				{
-					bfx = 0;
-					break;
-				}
-				bfx = -1;
-				node = x;
-				continue;
-			}
-		}
-		new->parent = g;
-		if (g != NULL)
-		{
-			if (x == g->left)
-				g->left = new;
-			else
-				g->right = new;
+				new->parent->right = new;
 		}
 		else
 			*tree = new;
-		break;
 	}
 }
 
