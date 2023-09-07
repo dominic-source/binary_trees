@@ -7,19 +7,17 @@
  * @array: array of integers
  * Return: Node  or NULL
  */
-binary_tree_t *recursion(binary_tree_t *parent, size_t start,
-			 size_t end, int *array)
+binary_tree_t *recursion(binary_tree_t *parent, int start,
+			 int end, int *array)
 {
 	binary_tree_t *node;
 	size_t mid;
-	int value;
 
-	if (start > end || end < 1)
+	if (start > end || end < 0 || start < 0)
 		return (NULL);
 
 	mid = (start + end) / 2;
-	value = array[mid];
-	node = binary_tree_node(parent, value);
+	node = binary_tree_node(parent, array[mid]);
 
 	if (node == NULL)
 		return (NULL);
@@ -40,6 +38,6 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 
 	if (array == NULL || size == 0)
 		return (NULL);
-	node = recursion(NULL, 0, size - 1, array);
+	node = recursion(NULL, 0, (int)(size - 1), array);
 	return ((avl_t *)node);
 }
