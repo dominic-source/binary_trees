@@ -1,38 +1,30 @@
 #include "binary_trees.h"
 /**
- * insert - insert node in a binary search tree
- * @tree: a double pointer to the root node
- * @value: the value the node
- * Return: a pointer to the created  node
+ * recursion - insert node in a binary search tree
+ * @parent: the parent node
+ * @start: the start index of the array
+ * @end: the end index of the array
+ * @array: array of integers
+ * Return: Node  or NULL
  */
-avl_t *insert(avl_t **tree, int value)
+avl_t *recursion(avl_t *parent, size_t start, size_t end, int *array)
 {
-        avl_t *node, *y, *x = *tree;
+	avl_t *node;
+	size_t mid;
 
-        y = NULL;
+	if (start >= end)
+		return (NULL);
 
-        node = (avl_t *)binary_tree_node(NULL, value);
-        while (x != NULL)
-        {
-                y = x;
-                if (node->n < x->n)
-                        x = x->left;
-                else if (node->n == x->n)
-                {
-                        free(node);
-                        return (y);
-                }
-                else if (node->n > x->n)
-                        x = x->right;
-        }
-        node->parent = y;
-        if (y == NULL)
-                *tree = node;
-        else if (node->n < y->n)
-                y->left = node;
-        else
-                y->right = node;
-        return (node);
+	mid = (end + start) / 2;
+	node = (avl_t *)binary_tree_node((binary_tree_t *)parent, array[mid]);
+
+	if (node == NULL)
+		return (NULL);
+
+	node->left = recursion(node, start, mid - 1, array);
+	node->right = recursion(node, mid + 1, end, array);
+
+	return (node);
 }
 /**
  * sorted_array_to_avl - create an avl tree from a sorted array
@@ -42,18 +34,7 @@ avl_t *insert(avl_t **tree, int value)
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	avl_t *node, *tree;
-	size_t i;
-
 	if (array == NULL || size == 0)
 		return (NULL);
-
-	tree = NULL;
-	for (i = 0; i < size; i++)
-	{
-		node = insert(&tree, array[i]);
-		if (node == NULL)
-			return (NULL);
-	}
-	return (tree);
+	return (recursion(NULL, 0, size - 1, array));
 }
